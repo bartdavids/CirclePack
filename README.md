@@ -20,6 +20,7 @@ Circle packing is not an easy problem. Most methods I encountered did not adress
 
 ## Process
 When the optimization process is started, the circles will look for the first empty space they can find. Below a simple circle packing example is taken, where 64 circles of equal radii are in a square 1x1 container:
+
 ![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Process%20-%20run.gif)
 
 In the example, an addition function is used to find the largest radius the specified amount of circles can be inside the container. After the optimization has run untill the circles do not need to move to stop overlapping with their neighbours or stay inside the container, they grow. After that grow the process is started again until there is no more room to grow (a certain amount of itterations is reached). In the below figure this process is shown by taking a snapshot the frame just before a growth spurt is initated.
@@ -28,9 +29,10 @@ In the example, an addition function is used to find the largest radius the spec
 
 ## Assumptions
 The method I use to determine the bounce vector is graphically shown here:
+
 ![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Edge%20detect%20method.JPG)
 
-The points where the circle intersects (red x's) are averaged (blue x) to determine the bounce vector. It is a short and quick way to handle it, and much easier to handle with numba. However, it is not an exact way and does not take into consideration the velocity vector. In cases where the container is not a square this will be more appearant.
+The points where the circle intersects (red x's) are averaged (blue x) to determine the bounce vector. It is a short and quick way to handle it, and much easier to handle with numba. However, it is not an exact way and does not take into consideration the velocity vector. In the first video example this choice is shown to have consequences, where circles may bounce with more vigor from the corners due to the additional "overlap" (the blue x) compared to the actual overlap (with the red x's).
 
 ## Perfomance - results
 The results of the optimization have been briefly compared to the results presented at http://www.packomania.com/. On this website the benchmark bests for different containers and amount of circles are stored.
