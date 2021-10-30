@@ -95,6 +95,9 @@ class CirclePack(object):
         self.vx = np.random.uniform(-1, 1, size = self.n)/100
         self.vy = np.random.uniform(-1, 1, size = self.n)/100
     
+    def set_precision(self, new_precision):
+        self.precision = new_precision
+        
     @property
     def circle_indeces(self):
         """
@@ -273,7 +276,10 @@ class CirclePack(object):
             
             # Set force as a function of the absolute distance to other circles
             diff_dist = self.d[b][ob]
-            diff_dist[np.where(diff_dist == 0)[0]] = 1
+            
+            # set a minimum force to be applied within 10% of the distance the two circles could minimally have in an optimized state
+            diff_dr = self.r[b] + self.r[ob]
+            diff_dist[np.where(diff_dist < diff_dr / 10)[0]] = diff_dr[np.where(diff_dist < diff_dr / 10)[0]] / 10
             force1 = -1 * diffn / (1 / (diff_dist**2)).reshape(diffn.shape[0], 1)
             
             # Check for norm bounds
