@@ -5,19 +5,6 @@ from matplotlib import animation
 from circlepack import CirclePack
 from polygon import Polygon, make_numba_array
 
-def log_run(C, max_itt):
-    log_x = []
-    log_y = []
-    log_r = []
-    itt = 0
-    while itt < max_itt:
-        log_x.append(C.x.copy())
-        log_y.append(C.y.copy())
-        log_r.append(C.r.copy())
-        C.run()
-        itt+=1
-    return log_x, log_y, log_r
-    
 def grow(C, max_itt, grow_rate = 1.00001):
     print('Grow initiated')
     log_x = []
@@ -64,11 +51,6 @@ balls_n = 64
 balls_r = 0.03 * SCALE
     
 poly_edge = np.array([(0,0), (0,1*SCALE), (1*SCALE,1*SCALE), (1*SCALE,0), (0,0)])
-poly_holes_x = np.array([30 + 10*np.cos(2*np.pi/50* i) for i in range(50)])
-poly_holes_x = np.hstack((poly_holes_x, poly_holes_x[0]))
-poly_holes_y = np.array([30 + 10*np.sin(2*np.pi/50* i) for i in range(50)])
-poly_holes_y = np.hstack((poly_holes_y, poly_holes_y[0]))
-poly_holes = np.vstack((poly_holes_x, poly_holes_y)).T
 poly = [poly_edge]
 
 poly = make_numba_array(poly)
@@ -89,7 +71,7 @@ C.r = log_r[-2]
 
 plot_pack(C)
 
-#%%
+#%% A cell to conert the logs to a gif
 fig = plt.figure()
 for p in C.polygons.polygons:
     xi, yi = zip(*p)
