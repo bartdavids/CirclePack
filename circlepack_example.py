@@ -7,7 +7,7 @@ from polygon import Polygon, make_numba_array
 
 def grow(C, max_itt, grow_rate = 1.00001):
     print('Grow initiated')
-    log_x = []
+    log_x = [] # Store the locations and radii of the circles for image
     log_y = []
     log_r = []
     itt = 0
@@ -15,14 +15,14 @@ def grow(C, max_itt, grow_rate = 1.00001):
     c = True
     while c:
         frames +=1
-        itt = C.run_till_check(max_itt)
+        itt = C.run_till_check(max_itt) # Optimize the distribution of the circles in the container
         print(f"Frame: {frames}, radius: {C.r[0]}, after {itt} itterations")
-        log_x.append(C.x.copy())
+        log_x.append(C.x.copy()) 
         log_y.append(C.y.copy())
         log_r.append(C.r.copy())
-        if C.check()[0] or itt >= max_itt:
+        if C.check()[0] or itt >= max_itt: # Make sure the packing is succesful or within the amount of maximum iteration. 
             return log_x, log_y, log_r
-        C.r = np.round(C.r*grow_rate , C.precision)
+        C.r = np.round(C.r*grow_rate , C.precision) # When the packing has been succesful, initate grow
         
     if len(log_x) > 1:
         return log_x, log_y, log_r
@@ -46,32 +46,32 @@ def plot_pack(C):
         ball = plt.Circle((ball_x[c], ball_y[c]), radius=ball_r[c], picker=True, fc='none', ec='k')
         ax.add_patch(ball)  
 
-SCALE = 10
+SCALE = 10 # The The algorithm performs best with circles between 0.5 and 5.
 balls_n = 64
 balls_r = 0.03 * SCALE
     
-poly_edge = np.array([(0,0), (0,1*SCALE), (1*SCALE,1*SCALE), (1*SCALE,0), (0,0)])
-poly = [poly_edge]
+poly_edge = np.array([(0,0), (0,1*SCALE), (1*SCALE,1*SCALE), (1*SCALE,0), (0,0)]) # The polygon, closed (where the last point in the polygon is the same as the first.
+poly = [poly_edge] # There can be multiple polygons in the packing, with different lengths
 
-poly = make_numba_array(poly)
-poly = Polygon(poly)
+poly = make_numba_array(poly) # Make sure they have the same lengths and can be used by numba
+poly = Polygon(poly) # Initiate the container class
 
-x_, y_ = poly.centringpoint
+x_, y_ = poly.centringpoint # Get the midpoint (unless it falls outside the container, then it is a random point in it)
 ball_r = np.ones(balls_n) * balls_r
 ball_x = np.ones(balls_n) * x_
 ball_y = np.ones(balls_n) * y_
 
-C = CirclePack(ball_x, ball_y, ball_r, poly, on_point = False, precision = 7)
+C = CirclePack(ball_x, ball_y, ball_r, poly, on_point = False, precision = 7) # Initiate the circle pack
 
-max_itt = 10000
-log_x, log_y, log_r = grow(C, max_itt, grow_rate = 1 + 1e-2) 
-C.x = log_x[-2]
+max_itt = 10000 # Set the maximum number of iterations. Higher takes longer, but is more likely to find solutions to higher circle radii
+log_x, log_y, log_r = grow(C, max_itt, grow_rate = 1 + 1e-2) # Lower grow_rate makes sure the circles are packed sooner, but is more likely to suboptimal.
+C.x = log_x[-2] # The final one is not an optimal configuration
 C.y = log_y[-2]
 C.r = log_r[-2]
 
 plot_pack(C)
 
-#%% A cell to conert the logs to a gif
+#%% A cell to convert the logs to a gif
 fig = plt.figure()
 for p in C.polygons.polygons:
     xi, yi = zip(*p)
