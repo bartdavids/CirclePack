@@ -31,7 +31,7 @@ In the example, an addition function is used to find the largest radius the spec
 ![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Process%20-%20grow.gif)
 
 ## Assumptions
-The method I use to determine the bounce vector is graphically shown here:
+The method I use to determine the bounce vector for the bounce-on-edge method is graphically shown here:
 
 ![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Edge%20detect%20method.JPG)
 
