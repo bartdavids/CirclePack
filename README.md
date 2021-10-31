@@ -16,7 +16,10 @@ There are 5 .py modules
 - circlepack_example.py, where an example is presented. This examples distributes the circles as efficiently as possible in the container, growing them till they do not fit any longer. It creates a .gif with the progress at points of growth.
 
 ## Note
-Circle packing is not an easy problem. Most methods I encountered did not adress the problem of a container, or a hole in the container, or took extremely long to solve the problem. However, my dive into the subject was brief and not with the intention to make the best possible way to solve this problem. It is for me personally a study into numba and has some overlap with origami design, another hobby of mine.
+Circle packing is not an easy problem. Most methods I encountered did not adress the problem of a container, or a hole in the container, or took extremely long to solve the problem. However, my dive into the subject was brief and not with the intention to make the best possible way to solve this problem. It is for me personally a study into numba.
+
+## Dependancies
+This code has been made with numpy (1.19.2) and numba (0.54). For the example matplotlib is used as well to show the circle and container configuration.
 
 ## Process
 When the optimization process is started, the circles will look for the first empty space they can find. Below a simple circle packing example is taken, where 64 circles of equal radii are in a square 1x1 container:
