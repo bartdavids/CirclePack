@@ -277,9 +277,6 @@ class CirclePack(object):
             # Set force as a function of the absolute distance to other circles
             diff_dist = self.d[b][ob]
             
-            # set a minimum force to be applied within 10% of the distance the two circles could minimally have in an optimized state
-            diff_dr = self.r[b] + self.r[ob]
-            diff_dist[np.where(diff_dist < diff_dr / 10)[0]] = diff_dr[np.where(diff_dist < diff_dr / 10)[0]] / 10
             force1 = -1 * diffn / (1 / (diff_dist**2)).reshape(diffn.shape[0], 1)
             
             # Check for norm bounds
@@ -291,6 +288,10 @@ class CirclePack(object):
             for ni in normbibool:
                 force[ni] = np.subtract(force1[ni], np.array([self.vx[b], self.vy[b]]))
             net_force = force.sum(axis = 0)/(self.n - 1)
+            
+            if np.linalg.norm(net_force) < self.r[b]/10:
+                net_force = Normalize(AddAxis(net_force)) * self.r[b] / 10
+                net_force = net_force[0]
             
             # Set force
             fx[b] = net_force[0] 
