@@ -1,6 +1,24 @@
 import numpy as np
 from numba import njit, float64, int64
 
+@njit 
+def AddAxis(x):
+    """
+    Function to add axis in a numba friendly manner.
+    Similar function to x[None, :]
+
+    Parameters
+    ----------
+    x : 1D numpy array, floats
+
+    Returns
+    -------
+    y : 2D numpy array, floats
+    """
+    y = np.zeros((1, x.shape[0]))
+    y[0] = x
+    return y
+
 @njit
 def NbRound1(x, decimals):
     """
