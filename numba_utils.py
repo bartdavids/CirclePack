@@ -1,6 +1,14 @@
 import numpy as np
 from numba import njit, float64, int64
 
+@njit
+def DotProduct(v1, v2):
+    result = 0
+    for i in range(len(v1)):
+        result += v1[i] * v2[i]
+    #return sum(x*y for x, y in zip(v1, v2))
+    return result
+
 @njit 
 def AddAxis(x):
     """
