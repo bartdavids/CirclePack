@@ -21,13 +21,13 @@ def grow(C, max_itt, grow_rate = 1.00001):
         log_y.append(C.y.copy())
         log_r.append(C.r.copy())
         if C.check()[0] or itt >= max_itt: # Make sure the packing is succesful or within the amount of maximum iteration. 
-            return log_x, log_y, log_r
+            if len(log_x) > 1:
+                return log_x, log_y, log_r
+            else:
+                raise(Exception("With these amount, radii and maximum iterations, no solution was found. Try a smaller starting radius or higher amount of iterations."))
         C.r = np.round(C.r*grow_rate , C.precision) # When the packing has been succesful, initate grow
         
-    if len(log_x) > 1:
-        return log_x, log_y, log_r
-    else:
-        raise(Exception("With these amount, radii and maximum iterations, no solution was found. Try a smaller starting radius or higher amount of iterations."))
+    
 
 def plot_pack(C):
     ball_x = C.x
