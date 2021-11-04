@@ -297,10 +297,10 @@ def CheckCircleIntersect(circle_center, circle_radius, P1, P2):
     https://codereview.stackexchange.com/questions/86421/line-segment-to-circle-collision-algorithm
     """
     V = P2 - P1  
-    a = np.dot(V, V)
+    a = DotProduct(V, V)
     r1 = P1 - circle_center
-    b = 2 * np.dot(V, r1)
-    c = np.dot(P1, P1) + np.dot(circle_center, circle_center) - 2 * np.dot(P1, circle_center) - circle_radius**2
+    b = 2 * DotProduct(V, r1)
+    c = DotProduct(P1, P1) + DotProduct(circle_center, circle_center) - 2 * DotProduct(P1, circle_center) - circle_radius**2
     disc = b**2 - 4 * a * c
     if disc < 0:
         return False
