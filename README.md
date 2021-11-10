@@ -42,5 +42,9 @@ The results of the optimization have been briefly compared to the results presen
 
 In the above example of the growing case, the largest radii of the circles is approximated with this method. This method approximates the circle configuration forthe 64 circle case at Packomania and has a radius of 0.06230611, 98.18% of the circle radius presented at Packomania for the 64 circles in a square situation. After some tweaking of the parameters the result can be enhanced. My personal best on the 64 circle problem has been a radius of 0.06301875, surpassing 99% approximation of the Packomania benchmark.
 
+Some of the results are shown in below image, where a) is a packing where the radii are dependant on a perlin noise field, b) is a packin where there is a hole in the middle of the container, c) is the perlin noise example in a circle and d) is an odd shaped container and the circles have the constraint where they bounce on the circle centre:
+
+![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Collection.png)
+
 ## Performance - time
 Numbafying this code gave it a little over 10x speed boost, making a higher precision and approximation to the Packomania benchmarks possible and more fun.
