@@ -33,7 +33,7 @@ In the example, an addition function is used to find the largest radius the spec
 ## Assumptions
 The method I use to determine the bounce vector for the bounce-on-edge method is graphically shown here:
 
-![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Edge%20detect%20method.JPG)
+![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Edge%20detect%20method.JPGx)
 
 The points where the circle intersects (red x's) are averaged (blue x) to determine the bounce vector. It is a short and quick way to handle it, and much easier to handle with numba. However, it is not an exact way and does not take into consideration the velocity vector. In the first video example this choice is shown to have consequences, where circles may bounce with more vigor from the corners due to the additional "overlap" (the blue x) compared to the actual overlap (with the red x's).
 
