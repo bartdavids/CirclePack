@@ -26,7 +26,7 @@ When the optimization process is started, the circles will look for the first em
 
 ![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Process%20-%20run.gif)
 
-In the example, an addition function is used to find the largest radius the specified amount of circles can be inside the container. After the optimization has run untill the circles do not need to move to stop overlapping with their neighbours or stay inside the container, they grow. After that grow the process is started again until there is no more room to grow (a certain amount of itterations is reached). In the below figure this process is shown by taking a snapshot the frame just before a growth spurt is initated.
+In the example, an addition function is used to find the largest radius the specified amount of circles can be inside the container. After the optimization has run untill the circles do not need to move (either due overlapping with their neighbours or to stay inside the container), they grow. After that grow the process is started again until there is no more room to grow (a certain amount of itterations is reached). In the below figure this process is shown by taking a snapshot the frame just before a growth spurt is initated.
 
 ![image](https://github.com/bartdavids/CirclePack/blob/main/Images/Process%20-%20grow.gif)
 
